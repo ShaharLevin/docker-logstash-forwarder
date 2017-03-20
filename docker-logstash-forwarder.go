@@ -5,8 +5,8 @@ import (
 	"os"
 	"sync"
 
-	"github.com/digital-wonderland/docker-logstash-forwarder/forwarder"
-	"github.com/digital-wonderland/docker-logstash-forwarder/utils"
+	"github.com/lshahar/docker-logstash-forwarder/forwarder"
+	"github.com/lshahar/docker-logstash-forwarder/utils"
 	docker "github.com/fsouza/go-dockerclient"
 	logging "github.com/op/go-logging"
 )
