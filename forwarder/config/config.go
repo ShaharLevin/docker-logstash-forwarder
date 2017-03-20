@@ -51,7 +51,7 @@ func (config *LogstashForwarderConfig) AddContainerLogFile(container *docker.Con
 		k = strings.Replace(k, ".", "-", -1)
 		file.Fields["docker/label/"+k] = v
 	}
-
+	// Container.Node is relevant to docker swarm only.
 	if container.Node != nil {
 		file.Fields["docker/node/id"] = container.Node.ID
 		file.Fields["docker/node/ip"] = container.Node.IP
@@ -60,6 +60,12 @@ func (config *LogstashForwarderConfig) AddContainerLogFile(container *docker.Con
 		for k, v := range container.Node.Labels {
 			k = strings.Replace(k, ".", "-", -1)
 			file.Fields["docker/node/label/"+k] = v
+		}
+	} else {
+		hostname, err := os.Hostname()
+		if err == nil {
+			log.Debug("Docker:" ,hostname )
+			file.Fields["host"] = hostname
 		}
 	}
 
