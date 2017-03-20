@@ -61,6 +61,12 @@ func (config *LogstashForwarderConfig) AddContainerLogFile(container *docker.Con
 			k = strings.Replace(k, ".", "-", -1)
 			file.Fields["docker/node/label/"+k] = v
 		}
+	} else {
+		hostname, err := os.Hostname()
+		if err == nil {
+			log.Debug("Docker:" ,hostname )
+			file.Fields["host"] = hostname
+		}
 	}
 
 	config.Files = append(config.Files, file)
